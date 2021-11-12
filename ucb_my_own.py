@@ -76,3 +76,40 @@ def ucb_experiment(df, threshold_list, overhead_list, label_list, n_round, c, sa
     df2 = pd.DataFrame(np.array(list(result.values())).T, columns=list(result.keys()))
     df_result = df_result.append(df2)
     df_result.to_csv(savePath)
+
+root_path = "."
+results_path = os.path.join(root_path, "inference_experiment_get_data_ucb_3_pre.csv")
+df_result = pd.read_csv(results_path)
+df_result = df_result.loc[:, ~df_result.columns.str.contains('^Unnamed')]
+threshold_list = np.arange(0, 1.1, 0.1)
+overhead_list = np.arange(0, 1.1, 0.1)
+n_rounds = 100000
+verbose = False
+norm = False
+norm_mode = "norm_" if(norm) else ""
+label_list = df_result.label.unique()
+savePath = os.path.join(root_path, "%sucb_result_c_%s.csv"%(norm_mode, c))
+
+c = 0.1
+ucb_experiment(df_result, threshold_list, overhead_list, label_list, n_rounds, c, savePath, verbose)
+
+c = 0.05
+ucb_experiment(df_result, threshold_list, overhead_list, label_list, n_rounds, c, savePath, verbose)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
