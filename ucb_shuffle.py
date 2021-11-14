@@ -28,6 +28,8 @@ def ucb_run_resampling(df, threshold_list, overhead, label, n_rounds, c, verbose
 
   for n_round in range(n_rounds):
 
+    df = df.sample(frac=1)
+
     for step, (index, row) in enumerate(df.iterrows()):
 
       if (t < len(threshold_list)):
